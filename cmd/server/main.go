@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/FerRiosCosta/go-rest-api-crud/internal/database"
 	transportHTTP "github.com/FerRiosCosta/go-rest-api-crud/internal/transport/http"
 )
 
@@ -12,6 +13,13 @@ type App struct{}
 
 func (app *App) Run() error {
 	fmt.Println("Setting Up our App.")
+
+	var err error
+	db, err := database.NewDatabase()
+	if err != nil {
+		fmt.Println(db)
+		return err
+	}
 
 	handler := transportHTTP.NewHandler()
 	handler.SetupRoutes()
