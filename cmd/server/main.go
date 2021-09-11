@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/FerRiosCosta/go-rest-api-crud/internal/comment"
 	"github.com/FerRiosCosta/go-rest-api-crud/internal/database"
 	transportHTTP "github.com/FerRiosCosta/go-rest-api-crud/internal/transport/http"
 )
@@ -21,7 +22,9 @@ func (app *App) Run() error {
 		return err
 	}
 
-	handler := transportHTTP.NewHandler()
+	commentService := comment.NewService(db)
+
+	handler := transportHTTP.NewHandler(commentService)
 	handler.SetupRoutes()
 
 	if err := http.ListenAndServe(":8080", handler.Router); err != nil {
