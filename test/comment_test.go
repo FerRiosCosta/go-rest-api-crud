@@ -15,7 +15,7 @@ func TestGetComments(t *testing.T) {
 	fmt.Println("Running E2E test fot get comments endpoint")
 
 	client := resty.New()
-	resp, err := client.R().Get(BASE_URL + "/api/comment/")
+	resp, err := client.R().Get(BASE_URL + "/api/comment")
 	if err != nil {
 		t.Fail()
 	}
@@ -29,7 +29,7 @@ func TestPostComments(t *testing.T) {
 	client := resty.New()
 	resp, err := client.R().
 		SetBody(`{"slug": "/test", "author": "test", "body": "hello world"}`).
-		Post(BASE_URL + "/api/comment/")
+		Post(BASE_URL + "/api/comment")
 
 	assert.NoError(t, err)
 
