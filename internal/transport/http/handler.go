@@ -92,7 +92,7 @@ func (h *Handler) SetupRoutes() {
 	h.Router = mux.NewRouter()
 	h.Router.Use(LoggingMiddleware)
 
-	h.Router.HandleFunc("/api/comment", h.GetAllComments).Methods("GET")
+	h.Router.HandleFunc("/api/comment", JWTAuth(h.GetAllComments)).Methods("GET")
 	h.Router.HandleFunc("/api/comment", JWTAuth(h.PostComment)).Methods("POST")
 	h.Router.HandleFunc("/api/comment/{id}", h.GetComment).Methods("GET")
 	h.Router.HandleFunc("/api/comment/{id}", JWTAuth(h.UpdateComment)).Methods("PUT")
